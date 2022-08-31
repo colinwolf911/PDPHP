@@ -1,34 +1,31 @@
 <?php
-//file part 2
-$files='readme.txt';
+//session
+if(isset($_POST['submit'])){
+    //cookie for gender
+    setcookie('gender', $_POST['gender'],time() + 86400);
 
-//opening file for reading r reading only
-$handle=fopen($files,'r');
-//overwrite the end 
-$handle=fopen($handle,'+a');
+    session_start();
+    $_SESSION['name']=$_POST['name'];
 
-//read the file
-//echo fread($handle,filesize($file));
-//echo fread($handle,70);//how many byte we wantit
-
-//03 read the single line a pointer
-//echo fgets($handle);
-//echo fgets($handle);
-//echo fgets($handle);
-
-//04read single character
-echo fgetc($handle);
-echo fgetc($handle);
-
-//05write to file
-fwrite($handle,"\nhere is new product on sale within 40 days");//override at the beginning
-
-
-//06 file close
-fclose($handle);
-
-//delete the file
-unlink($file);
-
+   // echo $_SESSION['name'];
+   header('Location: project/index.php');
+}
 
 ?>
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>php sessions</title>
+    </head>
+    <body>
+    <form action="<?php echo $_SERVER['PHP_SELF']?>" method="POST">
+        <input type="text" name="name">
+        <select name="gender">
+            <option value="male">male</option>
+            <option value="female">female</option>
+            <option value="rather not to say ">others</option>
+        </select>
+        <input type="submit" name="submit" value="submit"class="btn brand z-depth-0" >
+    </form>
+    </body>
+</html>
